@@ -27,4 +27,13 @@
 .addButton {
   width: 260px;
   justify-content: center;
+  transition: 0.5s ease-in-out;
+}
+
+.addButton:hover {
+  transform: scale(1.07);
+}
+
+.addButton:active {
+  color: #8585ad;
 }
