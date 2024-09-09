@@ -18,12 +18,15 @@ export const OrderInfo: FC = () => {
   const ingredients: TIngredient[] = useSelector(getIngredients);
 
   const orderData = useSelector(getOrderByNumber);
+<<<<<<< HEAD
 
   // useEffect(() => {
   //   if (number) {
   //     getOrderByNumberThunk(Number(number));
   //   }
   // }, [number]);
+=======
+>>>>>>> e433b06da52dd04d677a4a2cefb3a053f3ac4bb8
 
   useEffect(() => {
     if (!orderData) {
@@ -71,7 +74,7 @@ export const OrderInfo: FC = () => {
       date,
       total
     };
-  }, [orderData, ingredients]);
+  }, [orderData, ingredients, number]);
 
   if (!orderInfo) {
     return <Preloader />;
