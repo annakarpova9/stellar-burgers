@@ -13,8 +13,6 @@ export const ProfileMenu: FC = () => {
   const handleLogout = () => {
     logoutUserThunk()
       .then(() => {
-        localStorage.clear();
-        deleteCookie('accessToken');
         userLogout();
       })
       .then(() => navigate('/login'));

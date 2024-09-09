@@ -19,7 +19,6 @@ import { useEffect } from 'react';
 import { useAction } from '../../hooks/useAction';
 import { ingredientsActions } from '../../services/features/ingredients/ingredients-slice';
 import { userActions } from '../../services/features/user/user-slice';
-import { getCookie } from '../../utils/cookie';
 
 const App = () => {
   const location = useLocation();

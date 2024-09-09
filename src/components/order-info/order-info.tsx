@@ -4,19 +4,20 @@ import { TIngredient, TOrder } from '@utils-types';
 import { useParams } from 'react-router-dom';
 import { OrderInfoUI, Preloader } from '@ui';
 import { getIngredients } from '../../services/features/ingredients/ingredients-slice';
-import { getFeetOrders } from '../../services/features/feed/feed-slice';
 import { useSelector } from '../../hooks/useSelector';
 import { useAction } from '../../hooks/useAction';
-import { orderActions } from '../../services/features/order/order-slice';
+import {
+  getOrderByNumber,
+  orderActions
+} from '../../services/features/order/order-slice';
 
 export const OrderInfo: FC = () => {
   const { number } = useParams();
   const { getOrderByNumberThunk } = useAction(orderActions);
 
   const ingredients: TIngredient[] = useSelector(getIngredients);
-  const orders: TOrder[] = useSelector(getFeetOrders);
 
-  const orderData = orders.find((i) => i.number === Number(number));
+  const orderData = useSelector(getOrderByNumber);
 
   useEffect(() => {
     if (!orderData) {
@@ -64,7 +65,7 @@ export const OrderInfo: FC = () => {
       date,
       total
     };
-  }, [orderData, ingredients]);
+  }, [orderData, ingredients, number]);
 
   if (!orderInfo) {
     return <Preloader />;

@@ -43,91 +43,77 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+
       .addCase(registerUserThunk.pending, (state) => {
-        state.error = null;
         state.request = true;
-      })
-      .addCase(registerUserThunk.rejected, (state, action) => {
-        state.error = action.error;
-        state.request = false;
+        state.error = null;
       })
       .addCase(registerUserThunk.fulfilled, (state, action) => {
+        state.request = false;
         state.user = action.payload;
-        state.error = null;
+        state.isAuthenticated = true;
+      })
+      .addCase(registerUserThunk.rejected, (state, action) => {
         state.request = false;
-      })
-      .addCase(loginUserThunk.pending, (state) => {
-        state.error = null;
-        state.request = true;
-      })
-      .addCase(loginUserThunk.rejected, (state, action) => {
-        state.isAuthChecked = true;
         state.error = action.error;
-        state.request = false;
+      })
+
+      .addCase(loginUserThunk.pending, (state) => {
+        state.request = true;
+        state.error = null;
       })
       .addCase(loginUserThunk.fulfilled, (state, action) => {
+        state.request = false;
         state.user = action.payload;
-        state.isAuthChecked = true;
         state.isAuthenticated = true;
-        state.error = null;
+      })
+      .addCase(loginUserThunk.rejected, (state, action) => {
         state.request = false;
-      })
-      .addCase(getUserThunk.pending, (state) => {
-        state.error = null;
-        state.request = true;
-      })
-      .addCase(getUserThunk.rejected, (state, action) => {
-        state.isAuthenticated = false;
         state.error = action.error;
-        state.request = false;
       })
-      .addCase(getUserThunk.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.isAuthenticated = true;
-        state.error = null;
-        state.request = false;
-      })
-      .addCase(updateUserThunk.pending, (state) => {
-        state.error = null;
-        state.request = true;
-      })
-      .addCase(updateUserThunk.rejected, (state, action) => {
-        state.isAuthenticated = false;
-        state.error = action.error;
-        state.request = false;
-      })
-      .addCase(updateUserThunk.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.isAuthenticated = true;
-        state.error = null;
-        state.request = false;
-      })
-      .addCase(logoutUserThunk.pending, (state) => {
-        state.error = null;
-        state.request = true;
-      })
-      .addCase(logoutUserThunk.rejected, (state, action) => {
-        state.error = action.error;
-        state.request = false;
-      })
-      .addCase(logoutUserThunk.fulfilled, (state) => {
-        state.user = null;
-        state.isAuthChecked = true;
-        state.isAuthenticated = false;
-        state.error = null;
-        state.request = false;
-      })
+
       .addCase(checkUserAuth.pending, (state) => {
-        state.error = null;
         state.request = true;
-      })
-      .addCase(checkUserAuth.rejected, (state, action) => {
-        state.error = action.error;
-        state.request = false;
+        state.error = null;
       })
       .addCase(checkUserAuth.fulfilled, (state, action) => {
-        state.error = null;
         state.request = false;
+        state.user = action.payload.user;
+        state.isAuthChecked = true;
+        state.isAuthenticated = !!action.payload; // если пользователь есть, значит авторизация пройдена
+      })
+      .addCase(checkUserAuth.rejected, (state, action) => {
+        state.request = false;
+        state.isAuthChecked = true; // проверка выполнена, даже если неудачно
+        state.isAuthenticated = false;
+        state.error = action.error;
+      })
+
+      .addCase(updateUserThunk.pending, (state) => {
+        state.request = true;
+        state.error = null;
+      })
+      .addCase(updateUserThunk.fulfilled, (state, action) => {
+        state.request = false;
+        state.user = action.payload.user;
+      })
+      .addCase(updateUserThunk.rejected, (state, action) => {
+        state.request = false;
+        state.error = action.error;
+      })
+
+      .addCase(logoutUserThunk.pending, (state) => {
+        state.request = true;
+        state.error = null;
+      })
+      .addCase(logoutUserThunk.fulfilled, (state) => {
+        state.request = false;
+        state.user = null;
+        state.isAuthenticated = false;
+      })
+      .addCase(logoutUserThunk.rejected, (state, action) => {
+        state.request = false;
+        state.error = action.error;
       });
   },
   selectors: {

@@ -3,6 +3,7 @@ import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { useSelector } from '../../hooks/useSelector';
 import { getUser, userActions } from '../../services/features/user/user-slice';
 import { useAction } from '../../hooks/useAction';
+import { useNavigate } from 'react-router-dom';
 
 export const Profile: FC = () => {
   const user = useSelector(getUser);

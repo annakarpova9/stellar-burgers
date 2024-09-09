@@ -16,6 +16,8 @@ import {
   getConstructorBun,
   getConstructorIngredients
 } from '../../services/features/constructor/constructor-slice';
+import { Simulate } from 'react-dom/test-utils';
+import error = Simulate.error;
 
 export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
