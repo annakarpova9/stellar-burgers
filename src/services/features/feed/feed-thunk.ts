@@ -4,5 +4,5 @@ import { FEED_SLICE_NAME } from '../../../utils/constants';
 
 export const getFeedThunk = createAsyncThunk(
   `${FEED_SLICE_NAME}/getFeed`,
-  getFeedsApi
+  async () => await getFeedsApi()
 );

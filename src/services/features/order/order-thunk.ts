@@ -4,10 +4,10 @@ import { ORDER_SLICE_NAME } from '../../../utils/constants';
 
 export const postOrderThunk = createAsyncThunk(
   `${ORDER_SLICE_NAME}/postOrder`,
-  orderBurgerApi
+  async (data: string[]) => await orderBurgerApi(data)
 );
 
 export const getOrderByNumberThunk = createAsyncThunk(
   `${ORDER_SLICE_NAME}/getOrderByNumber`,
-  getOrderByNumberApi
+  async (number: number) => await getOrderByNumberApi(number)
 );

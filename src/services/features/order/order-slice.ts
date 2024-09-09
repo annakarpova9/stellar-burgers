@@ -1,7 +1,8 @@
-import { createSlice, SerializedError } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, SerializedError } from '@reduxjs/toolkit';
 import { ORDER_SLICE_NAME } from '../../../utils/constants';
 import { getOrderByNumberThunk, postOrderThunk } from './order-thunk';
 import { TOrder } from '@utils-types';
+import { TNewOrderResponse } from '@api';
 
 type TOrderState = {
   orderRequest: boolean;
@@ -37,11 +38,14 @@ export const orderSlice = createSlice({
         state.orderRequest = false;
         state.error = action.error;
       })
-      .addCase(postOrderThunk.fulfilled, (state, action) => {
-        state.orderModalData = action.payload.order;
-        state.orderRequest = false;
-        state.error = null;
-      })
+      .addCase(
+        postOrderThunk.fulfilled,
+        (state, action: PayloadAction<TNewOrderResponse>) => {
+          state.orderModalData = action.payload.order;
+          state.orderRequest = false;
+          state.error = null;
+        }
+      )
       .addCase(getOrderByNumberThunk.pending, (state) => {
         state.orderByNumberRequest = true;
         state.error = null;

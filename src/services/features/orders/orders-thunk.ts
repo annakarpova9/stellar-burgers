@@ -4,5 +4,5 @@ import { USER_SLICE_NAME } from '../../../utils/constants';
 
 export const getOrdersThunk = createAsyncThunk(
   `${USER_SLICE_NAME}/orders`,
-  getOrdersApi
+  async () => await getOrdersApi()
 );

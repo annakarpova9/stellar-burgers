@@ -19,11 +19,12 @@ import { useEffect } from 'react';
 import { useAction } from '../../hooks/useAction';
 import { ingredientsActions } from '../../services/features/ingredients/ingredients-slice';
 import { userActions } from '../../services/features/user/user-slice';
-import { getCookie } from '../../utils/cookie';
+import { orderActions } from '../../services/features/order/order-slice';
 
 const App = () => {
   const location = useLocation();
   const background = location.state?.background;
+  const { resetOrderModal } = useAction(orderActions);
   const { getIngredientsThunk } = useAction(ingredientsActions);
   const { checkUserAuth, authChecked } = useAction(userActions);
 
@@ -41,6 +42,7 @@ const App = () => {
   }, [authChecked]);
 
   const modalClose = () => {
+    resetOrderModal();
     history.back();
   };
 

@@ -7,10 +7,8 @@ import {
   updateUserApi
 } from '@api';
 import { deleteCookie, getCookie, setCookie } from '../../../utils/cookie';
-import { useAction } from '../../../hooks/useAction';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { USER_SLICE_NAME } from '../../../utils/constants';
-import { userActions } from './user-slice';
 
 export const registerUserThunk = createAsyncThunk(
   `${USER_SLICE_NAME}/registerUser`,
@@ -34,20 +32,33 @@ export const loginUserThunk = createAsyncThunk(
 
 export const getUserThunk = createAsyncThunk(
   `${USER_SLICE_NAME}/getUser`,
-  getUserApi
+  async () => await getUserApi()
 );
 
 export const updateUserThunk = createAsyncThunk(
   `${USER_SLICE_NAME}/updateUser`,
-  async (data: Partial<TRegisterData>) => updateUserApi(data)
+  async (data: Partial<TRegisterData>) => await updateUserApi(data)
 );
 
 export const logoutUserThunk = createAsyncThunk(
   `${USER_SLICE_NAME}/logoutUser`,
-  logoutUserApi
+  () => {
+    logoutUserApi().then(() => {
+      localStorage.clear();
+      deleteCookie('accessToken');
+    });
+  }
 );
 
 export const checkUserAuth = createAsyncThunk(
   `${USER_SLICE_NAME}/checkUser`,
-  async () => getUserThunk()
+  async (_, { dispatch }) => {
+    const response = await dispatch(getUserThunk());
+
+    if (getUserThunk.fulfilled.match(response)) {
+      return response.payload;
+    } else {
+      throw new Error('Ошибка аутентификации пользователя');
+    }
+  }
 );
