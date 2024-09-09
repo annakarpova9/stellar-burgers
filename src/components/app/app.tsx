@@ -19,10 +19,7 @@ import { useEffect } from 'react';
 import { useAction } from '../../hooks/useAction';
 import { ingredientsActions } from '../../services/features/ingredients/ingredients-slice';
 import { userActions } from '../../services/features/user/user-slice';
-<<<<<<< HEAD
 import { orderActions } from '../../services/features/order/order-slice';
-=======
->>>>>>> e433b06da52dd04d677a4a2cefb3a053f3ac4bb8
 
 const App = () => {
   const location = useLocation();
