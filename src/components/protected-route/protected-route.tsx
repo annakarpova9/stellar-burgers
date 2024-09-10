@@ -38,7 +38,7 @@ export function ProtectedRoute({ children, onlyUnAuth }: TProtectedRouteProps) {
   }
 
   if (onlyUnAuth && user) {
-    const from = location.state?.from || { pathname: '/profile' };
+    const from = location.state?.from || { pathname: '/' };
     const background = location.state?.from?.background || null;
     return <Navigate replace to={from} state={{ background }} />;
   }

@@ -13,18 +13,18 @@ import '../../index.css';
 import styles from './app.module.css';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useParams } from 'react-router-dom';
 import { ProtectedRoute } from '../protected-route';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAction } from '../../hooks/useAction';
 import { ingredientsActions } from '../../services/features/ingredients/ingredients-slice';
 import { userActions } from '../../services/features/user/user-slice';
 import { orderActions } from '../../services/features/order/order-slice';
+import { ContentWithoutHistory } from '../../pages/content-without-history';
 
 const App = () => {
   const location = useLocation();
   const background = location.state?.background;
-  const { resetOrderModal } = useAction(orderActions);
   const { getIngredientsThunk } = useAction(ingredientsActions);
   const { checkUserAuth, authChecked } = useAction(userActions);
 
@@ -54,7 +54,15 @@ const App = () => {
 
           <Route path='/feed'>
             <Route index element={<Feed />} />
-            <Route path=':number' element={<OrderInfo />} />)
+            <Route
+              path=':number'
+              element={
+                <ContentWithoutHistory>
+                  <OrderInfo />
+                </ContentWithoutHistory>
+              }
+            />
+            )
           </Route>
 
           <Route
@@ -101,14 +109,23 @@ const App = () => {
                 path=':number'
                 element={
                   <ProtectedRoute>
-                    <OrderInfo />
+                    <ContentWithoutHistory>
+                      <OrderInfo />
+                    </ContentWithoutHistory>
                   </ProtectedRoute>
                 }
               />
             </Route>
           </Route>
 
-          <Route path='/ingredients/:id' element={<IngredientDetails />} />
+          <Route
+            path='/ingredients/:id'
+            element={
+              <ContentWithoutHistory>
+                <IngredientDetails />
+              </ContentWithoutHistory>
+            }
+          />
 
           <Route path='*' element={<NotFound404 />} />
         </Routes>
@@ -135,7 +152,7 @@ const App = () => {
               path='/profile/orders/:number'
               element={
                 <ProtectedRoute>
-                  <Modal onClose={modalClose} title='Детали заказа '>
+                  <Modal onClose={modalClose} title='Детали заказа'>
                     <OrderInfo />
                   </Modal>
                 </ProtectedRoute>
