@@ -42,7 +42,6 @@ const App = () => {
   }, [authChecked]);
 
   const modalClose = () => {
-    resetOrderModal();
     history.back();
   };
 

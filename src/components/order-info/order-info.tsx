@@ -6,10 +6,8 @@ import { OrderInfoUI, Preloader } from '@ui';
 import { getIngredients } from '../../services/features/ingredients/ingredients-slice';
 import { useSelector } from '../../hooks/useSelector';
 import { useAction } from '../../hooks/useAction';
-import {
-  getOrderByNumber,
-  orderActions
-} from '../../services/features/order/order-slice';
+import { orderActions } from '../../services/features/order/order-slice';
+import { orderInfoDataSelector } from '@selectors';
 
 export const OrderInfo: FC = () => {
   const { number } = useParams<{ number: string }>();
@@ -17,13 +15,7 @@ export const OrderInfo: FC = () => {
 
   const ingredients: TIngredient[] = useSelector(getIngredients);
 
-  const orderData = useSelector(getOrderByNumber);
-
-  // useEffect(() => {
-  //   if (number) {
-  //     getOrderByNumberThunk(Number(number));
-  //   }
-  // }, [number]);
+  const orderData = useSelector(orderInfoDataSelector(number || ''));
 
   useEffect(() => {
     if (!orderData) {
@@ -71,7 +63,7 @@ export const OrderInfo: FC = () => {
       date,
       total
     };
-  }, [orderData, ingredients, number]);
+  }, [orderData, ingredients]);
 
   if (!orderInfo) {
     return <Preloader />;
