@@ -19,6 +19,9 @@
   text-decoration: none;
   color: var(--text-inactive-color);
 }
+.link:hover {
+  opacity: 0.8;
+}
 
 .link_active {
   color: var(--text-primary-color);

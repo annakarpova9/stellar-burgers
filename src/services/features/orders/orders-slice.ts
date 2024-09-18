@@ -9,7 +9,7 @@ interface IOrdersSliceState {
   errors: SerializedError | null;
 }
 
-const initialState: IOrdersSliceState = {
+export const initialState: IOrdersSliceState = {
   orders: [],
   isLoading: false,
   errors: null
