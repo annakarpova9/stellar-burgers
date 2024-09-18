@@ -18,7 +18,7 @@ interface IUserSliceState {
   request: boolean;
 }
 
-const initialState: IUserSliceState = {
+export const initialState: IUserSliceState = {
   user: null,
   isAuthChecked: false, // // была ли соверешена проверка наличия пользователя по токену
   isAuthenticated: false, // авторизация пройдена

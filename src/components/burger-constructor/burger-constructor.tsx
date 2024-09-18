@@ -28,10 +28,15 @@ export const BurgerConstructor: FC = () => {
   const ingredients = useSelector(getConstructorIngredients);
   const bun = useSelector(getConstructorBun);
 
-  const orderData = ingredients
-    .map((i) => i._id)
-    .concat([bun?._id || ''], [bun?._id || ''])
-    .filter((i) => i !== '');
+  // const orderData = ingredients
+  //   .map((i) => i._id)
+  //   .concat([bun?._id || ''], [bun?._id || ''])
+  //   .filter((i) => i !== '');
+
+  const orderData = [bun?._id || ''] // Добавляем булочку в начало
+    .concat(ingredients.map((i) => i._id)) // Добавляем ингредиенты
+    .concat([bun?._id || '']) // Добавляем булочку в конец
+    .filter((i) => i !== ''); // Убираем пустые строки
 
   const constructorItems = {
     bun: bun,

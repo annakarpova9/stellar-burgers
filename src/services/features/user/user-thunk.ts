@@ -6,7 +6,7 @@ import {
   TRegisterData,
   updateUserApi
 } from '@api';
-import { deleteCookie, getCookie, setCookie } from '../../../utils/cookie';
+import { deleteCookie, setCookie } from '../../../utils/cookie';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { USER_SLICE_NAME } from '../../../utils/constants';
 

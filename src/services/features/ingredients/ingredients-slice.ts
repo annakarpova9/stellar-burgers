@@ -9,7 +9,7 @@ interface IIngredientsSliceState {
   error: SerializedError | null;
 }
 
-const initialState: IIngredientsSliceState = {
+export const initialState: IIngredientsSliceState = {
   ingredients: [],
   isLoading: false,
   error: null

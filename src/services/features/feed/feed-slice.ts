@@ -10,7 +10,7 @@ interface IFeedsSliceState {
   error: SerializedError | null;
 }
 
-const initialState: IFeedsSliceState = {
+export const initialState: IFeedsSliceState = {
   feed: null,
   orders: [],
   isLoading: false,

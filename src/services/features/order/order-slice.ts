@@ -12,7 +12,7 @@ type TOrderState = {
   error: SerializedError | null;
 };
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
   orderRequest: false,
   orderByNumberRequest: false,
   orderModalData: null,
