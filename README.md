@@ -21,7 +21,7 @@ npm run storybook
 ### Запуск тестов на Jest:
 
 ```
-npm tun test
+npm run test
 ```
 
 ## Важно:
